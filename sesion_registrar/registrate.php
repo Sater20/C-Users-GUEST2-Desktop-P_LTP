@@ -23,6 +23,14 @@
                 <i class="bi bi-person-fill"></i>
             </div>
             <div class="input-box">
+                <input type="text" name="nombre_apellido" placeholder="Nombre completo" required>
+                <i class="bi bi-person-badge-fill"></i>
+            </div>
+            <div class="input-box">
+                <input type="tel" name="telefono" placeholder="Teléfono" required>
+                <i class="bi bi-telephone-fill"></i>
+            </div>
+            <div class="input-box">
                 <input type="email" name="email" placeholder="Email" required>
                 <i class="bi bi-envelope-fill"></i>
             </div>

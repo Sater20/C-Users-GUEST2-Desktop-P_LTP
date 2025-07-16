@@ -29,7 +29,10 @@
           <a class="nav-link" href="añadir_prudcto.php">Nuevo Producto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Facturas</a>
+          <a class="nav-link" href="administrar_facturas.php">Facturas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="administrar_usuarios.php">Administrar Usuarios</a>
         </li>
       </ul>
         <form class="d-flex mx-auto" method="GET" action="buscador_admin.php">
@@ -48,29 +51,40 @@
     </header>
 <body >
 
-<div style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr; margin-left: 20px; row-gap: 20px;" class="d-grid gap-3 my-5 mt-5 ">
-    <?php
-    include "../model/conn.php";
-    include "../controllers/eliminar_producto.php";
-    $sql = $conn->query("select * from productos");
-    while ($item = $sql->fetch_object()){ ?>
-       <div class="card" style="width: 18rem; border: 2px solid #4682B4; height: 100%; display: flex; flex-direction: column;">
-       <img src="../<?= $item->imagen ?>" class="card-img-top" alt="...">
-       <div class="card-body" style="flex-grow: 1; display: flex; flex-direction: column;">
-      <div class="card_nombre_producto">
-       <h5 class="card-title" style="font-weight: bold;"><?= $item->nombre_producto ?></h5>
-       </div>
-       <p class="card-text" style="font-weight: bold;">$ <?= $item->precio ?></p>
-       <div style="margin-top: auto;">
-       <a href="editar_admin.php?id_producto=<?= $item->id_productos?>" class="btn btn-small btn-warning"><i class="bi bi-pencil-square"></i></a>
-       <a onclick="return confirm('¿seguro que deseas borrar el producto?')" href="admin.php?id_productos=<?= $item->id_productos?>" class="btn btn-small btn-danger"><i class="bi bi-trash"></i></a>
-       </div>
-  </div>
-</div>
- 
- <?php 
-    }
-   ?>
+<div class="container">
+    <div class="row g-4">
+        <?php
+        include "../model/conn.php";
+        include "../controllers/eliminar_producto.php";
+        $sql = $conn->query("select * from productos");
+        while ($item = $sql->fetch_object()){ ?>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card h-100 shadow-sm border-0 product-card">
+                    <img src="../<?= $item->imagen ?>" class="card-img-top" alt="<?= $item->nombre_producto ?>" style="height: 200px; object-fit: contain; background-color: #f8f9fa;">
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title fw-bold text-truncate" title="<?= $item->nombre_producto ?>">
+                            <?= $item->nombre_producto ?>
+                        </h6>
+                        <div class="mt-auto">
+                            <div class="mb-3">
+                                <span class="h5 text-success fw-bold mb-0">$<?= number_format($item->precio, 2) ?></span>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <a href="editar_admin.php?id_producto=<?= $item->id_productos?>" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <a onclick="return confirm('¿Seguro que deseas borrar el producto?')" 
+                                   href="admin.php?id_productos=<?= $item->id_productos?>" 
+                                   class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
 </div>
 
 
